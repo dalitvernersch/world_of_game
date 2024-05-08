@@ -5,21 +5,21 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the repository
-                git 'https://github.com/your/repository.git'
+                git 'https://github.com/dalitvernersch/world_of_game.git'
             }
         }
 
         stage('Build') {
             steps {
                 // Build the Docker image
-                sh 'docker build -t my-flask-app .'
+                sh 'docker build -t world-of-game-app .'
             }
         }
 
         stage('Run') {
             steps {
                 // Run the Docker container
-                sh 'docker run -d -p 8777:5000 --name my-flask-container -v $(pwd)/dummy_Scores.txt:/Scores.txt my-flask-app'
+                sh 'docker run -d -p 8777:5000 --name world-of-game-app-container -v $(pwd)/dummy_Scores.txt:/Scores.txt world-of-game-app'
             }
         }
 
@@ -40,12 +40,13 @@ pipeline {
         stage('Finalize') {
             steps {
                 // Terminate the Docker container
-                sh 'docker stop my-flask-container'
-                sh 'docker rm my-flask-container'
+                sh 'docker stop world-of-game-app-container'
+                sh 'docker rm world-of-game-app-container'
 
                 // Tag and push the Docker image to DockerHub
-                sh 'docker tag my-flask-app username/repository:tag'
-                sh 'docker push username/repository:tag'
+               sh 'docker tag my-flask-app dalitvernersch/world_of_game:latest'
+               sh 'docker push dalitvernersch/world_of_game:latest'
+
             }
         }
     }
