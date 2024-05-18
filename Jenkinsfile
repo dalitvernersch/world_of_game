@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the repository
-                git 'https://github.com/dalitvernersch/world_of_game.git'
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 // Checkout the repository
+//                 git 'https://github.com/dalitvernersch/world_of_game.git'
+//             }
+//         }
 
         stage('Build') {
             steps {
@@ -44,7 +44,7 @@ pipeline {
                 sh 'docker rm world-of-game-app-container'
 
                 // Tag and push the Docker image to DockerHub
-               sh 'docker tag my-flask-app dalitvernersch/world_of_game:latest'
+               sh 'docker tag world-of-game-app dalitvernersch/world_of_game:latest'
                sh 'docker push dalitvernersch/world_of_game:latest'
 
             }

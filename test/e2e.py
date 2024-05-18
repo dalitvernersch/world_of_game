@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
-def test_scores_service(application_url):
+def test_scores_service(application_url="http://127.0.0.1:8777/"):
     # Create a WebDriver instance (assuming you have installed Selenium and have a compatible browser driver)
     driver = webdriver.Chrome()  # You may need to adjust this based on your setup
 
@@ -42,8 +42,10 @@ def test_scores_service(application_url):
         driver.quit()
 
 
-def main_function(application_url):
+def main_function(application_url="http://127.0.0.1:8777/"):
     if test_scores_service(application_url):
+        print("Success")
         return 0  # Tests passed
     else:
+        print("Failed")
         return -1  # Tests failed
