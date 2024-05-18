@@ -1,13 +1,32 @@
-version: '1'
+#version: '1'
+#
+#services:
+#  web:
+#    build: .
+#    ports:
+#      - "5000:5000"
+#    volumes:
+#      - .:/app
+#    environment:
+#      FLASK_APP: MainScores.py
+#    command: flask run --host=0.0.0.0
+
+
+
+version: "3.7"
 
 services:
-  web:
-    build: .
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root
+    container_name: jenkins
     ports:
-      - "5000:5000"
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - .:/app
+      - ./jenkins:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      FLASK_APP: MainScores.py
-    command: flask run --host=0.0.0.0
-
+          FLASK_APP: MainScores.py
+          command: flask run --host=0.0.0.0
