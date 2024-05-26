@@ -6,13 +6,13 @@ WORKDIR /app
 
 # Copy the contents of the current directory to the working directory in the container
 COPY . .
-# Install Selenium
-RUN pip install selenium
+
 
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-
+# Install Selenium
+RUN pip install selenium
 
 # Expose the port on which your Flask app will run (assuming it's 5000)
 EXPOSE 5000
