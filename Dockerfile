@@ -21,4 +21,4 @@ EXPOSE 5000
 COPY Scores.txt /Scores.txt
 
 # Set the command to run your flask app
-CMD ["python3", "MainScores.py"]
+CMD ["python", "MainScores.py"]
