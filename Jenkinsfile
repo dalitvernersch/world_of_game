@@ -19,14 +19,14 @@ pipeline {
         stage('Run') {
             steps {
                 // Run the Docker container
-                sh 'docker run -d -p 8777:5000 --name world-of-game-app-container -v $(pwd)/Scores.txt world-of-game-app'
+                sh 'docker run -d -p 8777:5000 --name world-of-game-app-container -v $(pwd)/Scores.txt:/Scores.txt world-of-game-app'
             }
         }
 
         stage('Test') {
             steps {
-                // Run Selenium tests using e2e.py
-                sh 'python3 test/e2e.py http://localhost:8777'
+                // Run Selenium tests using e2e.py inside the Docker container
+                sh 'docker exec world-of-game-app-container python3 /app/test/e2e.py http://localhost:8777'
             }
             post {
                 // Fail the pipeline if tests fail
@@ -44,9 +44,8 @@ pipeline {
                 sh 'docker rm world-of-game-app-container'
 
                 // Tag and push the Docker image to DockerHub
-               sh 'docker tag world-of-game-app dalitvernersch/world_of_game:latest'
-               sh 'docker push dalitvernersch/world_of_game:latest'
-
+                sh 'docker tag world-of-game-app dalitvernersch/world_of_game:latest'
+                sh 'docker push dalitvernersch/world_of_game:latest'
             }
         }
     }
