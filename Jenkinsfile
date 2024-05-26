@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-//         stage('Checkout') {
-//             steps {
-//                 // Checkout the repository
-//                 git 'https://github.com/dalitvernersch/world_of_game.git'
-//             }
-//         }
+        stage('Checkout') {
+            steps {
+                // Checkout the repository
+                git 'https://github.com/dalitvernersch/world_of_game.git'
+            }
+        }
 
         stage('Build') {
             steps {

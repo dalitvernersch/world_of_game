@@ -10,6 +10,9 @@ COPY . .
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Selenium
+RUN pip install selenium
+
 # Expose the port on which your Flask app will run (assuming it's 5000)
 EXPOSE 5000
 
@@ -17,4 +20,4 @@ EXPOSE 5000
 COPY Scores.txt /Scores.txt
 
 # Set the command to run your flask app
-CMD ["python", "MainScores.py"]
+CMD ["python3", "MainScores.py"]
