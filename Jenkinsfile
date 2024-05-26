@@ -19,14 +19,14 @@ pipeline {
         stage('Run') {
             steps {
                 // Run the Docker container
-                sh 'docker run -d -p 8777:5000 --name world-of-game-app-container -v $(pwd)/dummy_Scores.txt:/Scores.txt world-of-game-app'
+                sh 'docker run -d -p 8777:5000 --name world-of-game-app-container -v $(pwd)/Scores.txt world-of-game-app'
             }
         }
 
         stage('Test') {
             steps {
                 // Run Selenium tests using e2e.py
-                sh 'python e2e.py http://localhost:8777'
+                sh 'python3 test/e2e.py http://localhost:8777'
             }
             post {
                 // Fail the pipeline if tests fail
