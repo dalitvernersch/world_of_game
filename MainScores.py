@@ -1,5 +1,4 @@
-
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -19,30 +18,10 @@ def read_score():
 def score_server():
     score = read_score()
     if isinstance(score, int):
-        html = f"""
-        <html>
-        <head>
-        <title>Scores Game</title>
-        </head>
-        <body>
-        <h1>The score is <div id="score">{score}</div></h1>
-        </body>
-        </html>
-        """
+        return render_template('score.html', score=score)
     else:
-        html = f"""
-        <html>
-        <head>
-        <title>Scores Game</title>
-        </head>
-        <body>
-        <h1><div id="score" style="color:red">{score}</div></h1>
-        </body>
-        </html>
-        """
-    return html
+        return render_template('error.html', error=score)
 
 
 if __name__ == '__main__':
-    # Bind to 0.0.0.0 to allow access from any IP address
     app.run(host='0.0.0.0', port=5010)

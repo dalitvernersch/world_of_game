@@ -43,9 +43,14 @@ pipeline {
                 sh 'docker stop world-of-game-app-container'
                 sh 'docker rm world-of-game-app-container'
 
-                // Tag and push the Docker image to DockerHub
-                sh 'docker tag world-of-game-app dalitvernersch/world_of_game:latest'
-                sh 'docker push dalitvernersch/world_of_game:latest'
+               withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+    // Login to Docker Hub
+    sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
+    // Tag and push the Docker image to the new DockerHub repository
+    sh 'docker tag world-of-game-app $DOCKER_HUB_USERNAME/world_of_game:latest'
+    sh 'docker push $DOCKER_HUB_USERNAME/world_of_game:latest'
+}
+
             }
         }
     }
